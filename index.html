@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spinning Wheel</title>
+  <style>
+    /* General Styles */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Wheel Container */
+    .wheel-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 5px solid #333;
+      overflow: hidden;
+    }
+
+    /* Wheel */
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      position: relative;
+      background: conic-gradient(
+        #FF5733 0deg 51.42deg, /* Sun NXT */
+        #FFC300 51.42deg 102.84deg, /* Sony LIV */
+        #DAF7A6 102.84deg 154.26deg, /* Hotstar */
+        #FFC300 154.26deg 205.68deg, /* Prime */
+        #FF5733 205.68deg 257.1deg, /* AHA */
+        #DAF7A6 257.1deg 308.52deg, /* Netflix */
+        #FFC300 308.52deg 360deg /* ZEE 5 */
+      );
+      transition: transform 4s ease-out;
+    }
+
+    /* Arrow Indicator */
+    .arrow {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 20px solid red;
+      z-index: 10;
+    }
+
+    /* Spin Button */
+    .spin-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .spin-btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎡 Spin the Wheel!</h2>
+  <div class="wheel-container">
+    <div class="arrow"></div>
+    <div class="wheel" id="wheel"></div>
+  </div>
+  <button class="spin-btn" id="spinBtn">Spin</button>
+
+  <script>
+    const wheel = document.getElementById('wheel');
+    const spinBtn = document.getElementById('spinBtn');
+
+    spinBtn.addEventListener('click', () => {
+      // Always land on Hotstar
+      let fixedAngle = 1440 + 108; // 4 full spins + 108 degrees (Hotstar's position)
+
+      wheel.style.transform = `rotate(${fixedAngle}deg)`;
+
+      // Disable button during spin
+      spinBtn.disabled = true;
+      
+      setTimeout(() => {
+        spinBtn.disabled = false;
+        alert("🎉 Congratulations! You won 1 year of Hotstar Premium!");
+      }, 4000);
+    });
+  </script>
+</body>
+</html>
